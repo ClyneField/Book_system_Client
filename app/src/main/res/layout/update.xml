@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:background="@drawable/background">
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="@string/update_text1"
+            android:textSize="10pt"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/update_name"
+            android:ems="10"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_text2"
+            android:textSize="10pt" />
+        <EditText
+            android:layout_height="wrap_content"
+            android:id="@+id/update_id"
+            android:inputType="numberDecimal"
+            android:ems="10"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="@string/update_text3"
+            android:textSize="10pt"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:id="@+id/update_price"
+            android:ems="10"/>
+    </TableRow>
+    <Button
+        android:layout_height="wrap_content"
+        android:id="@+id/update"
+        android:text="@string/update_button"
+        android:textSize="10pt"
+        android:background="@drawable/shape"/>
+</TableLayout>

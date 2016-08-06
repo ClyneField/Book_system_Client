@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <Button
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button3"
+        android:textColor="@color/main_button"
+        android:id="@+id/m_update"
+        android:textSize="10pt"
+        android:background="@drawable/shape"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button4"
+        android:textColor="@color/main_button"
+        android:id="@+id/m_retrieve"
+        android:textSize="10pt"
+        android:background="@drawable/shape"
+        android:layout_below="@+id/m_update"
+        android:layout_alignRight="@+id/m_update"
+        android:layout_marginTop="5pt"/>
+    <Button
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button2"
+        android:textColor="@color/main_button"
+        android:id="@+id/m_delete"
+        android:textSize="10pt"
+        android:background="@drawable/shape"
+        android:layout_above="@+id/m_update"
+        android:layout_alignRight="@+id/m_update"
+        android:layout_marginBottom="5pt"/>
+    <Button
+        android:layout_width="100pt"
+        android:layout_height="wrap_content"
+        android:text="@string/main_button1"
+        android:textColor="@color/main_button"
+        android:id="@+id/m_create"
+        android:textSize="10pt"
+        android:background="@drawable/shape"
+        android:layout_above="@+id/m_delete"
+        android:layout_alignRight="@+id/m_delete"
+        android:layout_marginBottom="5pt"/>
+</RelativeLayout>
+

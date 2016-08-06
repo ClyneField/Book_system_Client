@@ -1,0 +1,33 @@
+<resources>
+
+    <string name="app_name">图书管理</string>
+    <string name="title">hello</string>
+
+    <string name="main_text">图书管理系统</string>
+    <string name="main_button1">增加</string>
+    <string name="main_button2">删除</string>
+    <string name="main_button3">修改</string>
+    <string name="main_button4">查询</string>
+
+    <string name="create_text1">图书名称:</string>
+    <string name="create_text2">图书编号:</string>
+    <string name="create_text3">图书价格:</string>
+    <string name="create_button">增加</string>
+
+    <string name="update_text1">图书名称:</string>
+    <string name="update_text2">图书编号:</string>
+    <string name="update_text3">图书价格:</string>
+    <string name="update_button">修改</string>
+
+    <string name="retrieve_text1">图书名称</string>
+    <string name="retrieve_text2">图书编号</string>
+    <string name="retrieve_text3">图书价格</string>
+
+    <string name="delete_text">图书名称:</string>
+    <string name="delete_button">删除</string>
+
+    <string name="account_button1">个人账号</string>
+    <string name="account_button2">管理账号</string>
+    <string name="account_button3">登录</string>
+    <string name="account_button4">注册</string>
+</resources>

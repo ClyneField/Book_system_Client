@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/retrieve"
+        android:stretchColumns="0,1">
+        <TableRow>
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/retrieve_text1"
+                android:id="@+id/retrieve_name"
+                android:textSize="10pt"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/retrieve_text2"
+                android:id="@+id/retrieve_id"
+                android:textSize="10pt"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:text="@string/retrieve_text3"
+                android:id="@+id/retrieve_price"
+                android:textSize="10pt"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
