@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TouristActivity">
+            android:name=".FragmentManager">
             <intent-filter>
-                <action android:name="ui.book.TouristActivity"/>
+                <action android:name="ui.book.FragmentManager"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

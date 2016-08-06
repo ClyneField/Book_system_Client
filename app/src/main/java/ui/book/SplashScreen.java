@@ -29,7 +29,7 @@ public class SplashScreen extends Activity {
                     e.printStackTrace();
                 } finally {
                     finish();
-                    startActivity(new Intent("ui.book.TouristActivity"));
+                    startActivity(new Intent("ui.book.FragmentManager"));
                 }
             }
         }.start();
