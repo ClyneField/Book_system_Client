@@ -2,20 +2,48 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tourist_name"
-        android:textSize="10pt" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tourist_id"
-        android:textSize="10pt" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tourist_price"
-        android:textSize="10pt" />
+    android:orientation="horizontal"
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="2"
+        tools:scr="@drawable/background"/>
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="5">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tourist_name"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:padding="20dp"
+            tools:text="旅行使我们谦虚"/>
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/tourist_id"
+                android:textSize="15sp"
+                tools:text="毕淑敏"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:id="@+id/tourist_price"
+                android:textSize="15sp"
+                tools:text="2016/08/07"/>
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:id="@+id/plus"
+        tools:text="+"/>
 </LinearLayout>
