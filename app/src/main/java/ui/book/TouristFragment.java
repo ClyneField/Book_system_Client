@@ -8,7 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,13 +22,21 @@ import control.book.Controller;
 import model.book.Book;
 import model.book.BookList;
 import model.book.Response;
+import util.book.Search;
 
+/**
+ * 类名：TouristFragment
+ * 功能：启动网络线程并接收图书数据；
+ * 可添加图书到BookshelfFragment；
+ * 可浏览图书详细信息；
+ */
 public class TouristFragment extends Fragment {
 
     BookAdapter bookAdapter;
     List<Map<String, Object>> list_item = new ArrayList<>();
     ListView listView;
     String result;
+    SearchView searchView;
 
     @Override
     public void onAttach(Context context) {
@@ -47,6 +57,12 @@ public class TouristFragment extends Fragment {
         View view = inflater.inflate(R.layout.tourist, container, false);
         listView = (ListView) view.findViewById(R.id.list_tourist);
         listView.setAdapter(bookAdapter);
+
+        searchView = (SearchView) view.findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault(false);
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint("查询");
+
         return view;
     }
 

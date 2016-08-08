@@ -7,7 +7,10 @@ import android.support.v4.view.ViewPager;
 
 import java.util.ArrayList;
 
-/** FragmentManager功能：管理三个fragment的显示和隐藏
+/**  类名：FragmentManager；
+ *   功能：设置ViewPager；
+ *   管理三个Fragment的显示和隐藏；
+ *
  */
 public class FragmentManager extends FragmentActivity {
 
@@ -19,13 +22,13 @@ public class FragmentManager extends FragmentActivity {
         ArrayList<Fragment>fragmentList = new ArrayList<>();
 
         Fragment firstFragment = new TouristFragment();
-        Fragment secondFragment = new BookFragment();
+        Fragment secondFragment = new BookshelfFragment();
         Fragment thirdFragment = new AccountFragment();
 
         fragmentList.add(firstFragment);
         fragmentList.add(secondFragment);
         fragmentList.add(thirdFragment);
         viewPager.setAdapter( new FragmentAdapter( getSupportFragmentManager(), fragmentList ) );
-        viewPager.setCurrentItem( 0 ); //设置当前显示标签页为第一页
+        viewPager.setCurrentItem( 0 ); //设置首页
     }
 }
