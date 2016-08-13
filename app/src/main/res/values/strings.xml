@@ -20,14 +20,14 @@
     <string name="update_button">修改</string>
 
     <string name="retrieve_text1">图书名称</string>
-    <string name="retrieve_text2">图书编号</string>
-    <string name="retrieve_text3">图书价格</string>
+    <string name="retrieve_text2">出版日期</string>
+    <string name="retrieve_text3">作者</string>
 
     <string name="delete_text">图书名称:</string>
     <string name="delete_button">删除</string>
 
-    <string name="account_button1">账号:</string>
-    <string name="account_button2">密码:</string>
+    <string name="account_button1">账号：</string>
+    <string name="account_button2">密码：</string>
     <string name="account_button3">登录</string>
     <string name="account_button4">注册</string>
 </resources>

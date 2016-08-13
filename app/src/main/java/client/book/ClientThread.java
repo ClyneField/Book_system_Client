@@ -39,7 +39,7 @@ public class ClientThread extends Thread {
             byte[] buffer = new byte[SIZE];
             int length = in.read(buffer);
             // ----- 向客户端做出响应 ----- //
-            String message = new String( buffer, 0, length, "GBK" );
+            String message = new String( buffer, 0, length, "UTF-8" );
             controller.doResponse(message);
         } catch (IOException e) {
             e.printStackTrace();

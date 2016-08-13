@@ -48,7 +48,7 @@ public class Parser {
         String[] message = string.split("#");
         String id = message[0];
         String name = message[1];
-        String price = message[2];
-        return new Book( id, name, price );
+        String author = message[2];
+        return new Book( id, name, author );
     }
 }

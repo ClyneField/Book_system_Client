@@ -3,13 +3,13 @@ package model.book;
 public class Book{
 
     private String book_name;
-    private String book_id;
-    private String book_price;
+    private String book_author;
+    private String book_date;
 
-    public Book(String name,String id,String price){
+    public Book(String name,String author ,String date){
         this.book_name=name;
-        this.book_id=id;
-        this.book_price=price;
+        this.book_author=author;
+        this.book_date=date;
     }
 
     public String getName(){
@@ -19,23 +19,23 @@ public class Book{
         this.book_name=name;
     }
 
-    public String getId(){
-        return book_id;
+    public String getDate(){
+        return book_date;
     }
 
-    public void setId(String id){
-        this.book_id=id;
+    public void setDate(String date){
+        this.book_date=date;
     }
 
-    public String getPrice(){
-        return book_price;
+    public String getAuthor(){
+        return book_author;
     }
 
-    public void setPrice(String price){
-        this.book_price=price;
+    public void setAuthor(String author){
+        this.book_author=author;
     }
 
     public String toString(){
-        return book_id+" "+book_name+" "+book_price;
+        return book_date+" "+book_name+" "+book_author;
     }
 }

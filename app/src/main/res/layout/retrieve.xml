@@ -12,20 +12,22 @@
         android:stretchColumns="0,1">
         <TableRow>
             <TextView
+                android:id="@+id/retrieve_name"
                 android:layout_height="wrap_content"
                 android:text="@string/retrieve_text1"
-                android:id="@+id/retrieve_name"
-                android:textSize="10pt"/>
+                android:textSize="25sp"
+                android:paddingLeft="20dp"/>
             <TextView
+                android:id="@+id/retrieve_id"
                 android:layout_height="wrap_content"
                 android:text="@string/retrieve_text2"
-                android:id="@+id/retrieve_id"
-                android:textSize="10pt"/>
+                android:textSize="25sp"/>
             <TextView
+                android:id="@+id/retrieve_price"
                 android:layout_height="wrap_content"
                 android:text="@string/retrieve_text3"
-                android:id="@+id/retrieve_price"
-                android:textSize="10pt"/>
+                android:textSize="25sp"
+                android:paddingRight="20dp"/>
         </TableRow>
     </TableLayout>
 </LinearLayout>

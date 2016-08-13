@@ -3,47 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:descendantFocusability="blocksDescendants"
     xmlns:tools="http://schemas.android.com/tools">
-    <ImageView
+    <TableLayout
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_weight="2"
-        tools:scr="@drawable/background"/>
+        android:layout_weight="2">
+        <ImageView
+            android:id="@+id/bookImage"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            tools:scr="@drawable/background"/>
+        <TextView
+            android:id="@+id/bookStorage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15sp"
+            tools:text="库存"/>
+    </TableLayout>
     <TableLayout
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_weight="5">
         <TextView
+            android:id="@+id/bookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tourist_name"
             android:gravity="center"
             android:textSize="20sp"
             android:padding="20dp"
             tools:text="旅行使我们谦虚"/>
         <TableRow>
             <TextView
+                android:id="@+id/bookAuthor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:id="@+id/tourist_id"
                 android:textSize="15sp"
                 tools:text="毕淑敏"/>
             <TextView
+                android:id="@+id/bookDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:id="@+id/tourist_price"
                 android:textSize="15sp"
                 tools:text="2016/08/07"/>
         </TableRow>
     </TableLayout>
     <Button
+        android:id="@+id/addToBookshelf"
         android:layout_width="0dp"
         android:layout_height="100dp"
         android:layout_weight="1"
-        android:id="@+id/plus"
-        tools:text="+"/>
+        android:text="+"
+        android:focusable="false"/>
 </LinearLayout>

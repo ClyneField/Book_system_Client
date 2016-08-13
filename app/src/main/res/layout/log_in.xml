@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:stretchColumns="1">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/account" />
+    <RelativeLayout android:layout_marginTop="30dp">
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <RadioButton
+                android:id="@+id/student"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学生用户"
+                android:layout_toLeftOf="@+id/blank1"
+                android:checked="true"/>
+            <TextView
+                android:id="@+id/blank"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"/>
+            <RadioButton
+                android:id="@+id/admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="管理用户"
+                android:layout_toRightOf="@+id/blank"/>
+        </RadioGroup>
+    </RelativeLayout>
+    <TableRow android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:text="@string/account_button1"
+            android:textColor="@color/main_button"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"/>
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:hint="     请输入0-9位数字或字母"
+            android:layout_marginRight="20dp" />
+    </TableRow>
+    <TableRow android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="@string/account_button2"
+            android:textColor="@color/main_button"
+            android:id="@+id/a_manager"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"/>
+        <EditText
+            android:id="@+id/userPassword"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:inputType="textPassword"
+            android:hint="  请输入0-9位数字或字母"
+            android:layout_marginRight="20dp"/>
+    </TableRow>
+
+    <RelativeLayout android:layout_marginTop="15dp">
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/signIn"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/account_button3"
+            android:textColor="@color/main_button"
+            android:textSize="25sp"
+            android:background="@drawable/shape"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_marginTop="15dp">
+        <Button
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/signUp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/account_button4"
+            android:textColor="@color/main_button"
+            android:textSize="25sp"
+            android:background="@drawable/shape" />
+    </RelativeLayout>
+</TableLayout>

@@ -18,7 +18,7 @@ public class UpdateActivity extends Activity implements OnClickListener{
     private EditText u_id;
     private EditText u_price;
     private String book_name;
-    private String book_id;
+    private String book_date;
     private String book_price;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -44,16 +44,16 @@ public class UpdateActivity extends Activity implements OnClickListener{
 
     public void onClick(View view) {
         book_name = u_name.getText().toString();
-        book_id = u_id.getText().toString();
+        book_date = u_id.getText().toString();
         book_price = u_price.getText().toString();
 
-        if (book_name.equals("") || book_id.equals("") || book_price.equals(""))
+        if (book_name.equals("") || book_date.equals("") || book_price.equals(""))
             new Builder(UpdateActivity.this).setMessage("图书信息不能为空").show();
         else {
             new Thread() {
                 public void run() {
                     Controller controller = new Controller(handler);
-                    controller.updateBook(book_name, book_id, book_price);
+                    controller.updateBook(book_name, book_date, book_price);
                     u_name.setText("");
                     u_id.setText("");
                     u_price.setText("");

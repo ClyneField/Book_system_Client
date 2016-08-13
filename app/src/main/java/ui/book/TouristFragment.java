@@ -1,9 +1,12 @@
 package ui.book;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
@@ -22,52 +25,73 @@ import control.book.Controller;
 import model.book.Book;
 import model.book.BookList;
 import model.book.Response;
-import util.book.Search;
 
 /**
  * 类名：TouristFragment
- * 功能：启动网络线程并接收图书数据；
+ * 作用：启动网络线程并接收图书数据；
  * 可添加图书到BookshelfFragment；
  * 可浏览图书详细信息；
  */
-public class TouristFragment extends Fragment {
+public class TouristFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    BookAdapter bookAdapter;
-    List<Map<String, Object>> list_item = new ArrayList<>();
-    ListView listView;
-    String result;
-    SearchView searchView;
+    BookMessageAdapter bookMessageAdapter;
+    ListView listView; //图书列表
+    List<Map<String, Object>> bookListMap = new ArrayList<>(); //图书信息
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         getList();
         // ----- 图书列表获取完毕，创建适配器 ----- //
-        bookAdapter = new BookAdapter( getActivity(),
-                list_item,
-                R.layout.adapter,
-                new String[]{"name", "id", "price"},
-                new int[]{R.id.tourist_name, R.id.tourist_id, R.id.tourist_price});
-        Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+        bookMessageAdapter = new BookMessageAdapter( context,
+                bookListMap,
+                R.layout.book_message_adapter,
+                new String[]{"name", "author","date"},
+                new int[]{R.id.bookTitle, R.id.bookAuthor, R.id.bookDate});
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.tourist, container, false);
-        listView = (ListView) view.findViewById(R.id.list_tourist);
-        listView.setAdapter(bookAdapter);
+        View view = inflater.inflate(R.layout.book_message_listview, container, false);
 
-        searchView = (SearchView) view.findViewById(R.id.searchView);
-        searchView.setIconifiedByDefault(false);
+        listView = (ListView) view.findViewById(R.id.list_tourist); //加载列表
+        listView.setAdapter(bookMessageAdapter); //设置适配器
+        listView.setOnItemClickListener(this); //注册监听器
+
+        SearchView searchView = (SearchView) view.findViewById(R.id.searchView);
+        searchView.setIconifiedByDefault(true);
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("查询");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    // 清除ListView的过滤
+                    listView.clearTextFilter();
+                } else {
+                    // 使用用户输入的内容对ListView的列表项进行过滤
+                    listView.setFilterText(newText);
+                }
+                return true;
+            }
+        });
         return view;
     }
 
-    public void getList() {
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        Intent intent = new Intent();
+        intent.setClass(getContext(), BookMessage.class);
+        startActivity(intent);
+    }
 
+    public void getList() {
         // ----- 获取图书列表 ----- //
         new Thread() {
             public void run() {
@@ -83,7 +107,7 @@ public class TouristFragment extends Fragment {
         public void handleMessage(Message message) {
             super.handleMessage(message);
             Bundle bundle = message.getData();
-            result = bundle.getString("result");
+            String result = bundle.getString("result");
             // ----- 初始化Response ----- //
             Response response = Response.getResponse();
             // ----- 获得Response当中的图书列表 ----- //
@@ -94,17 +118,29 @@ public class TouristFragment extends Fragment {
                 Book book = bookList.get(i);
 
                 String name = book.getName();
-                String id = book.getId();
-                String price = book.getPrice();
+                String date = book.getDate();
+                String author = book.getAuthor();
 
                 Map<String, Object> book_map = new HashMap<>();
 
                 book_map.put("name", name);
-                book_map.put("id", id);
-                book_map.put("price", price);
+                book_map.put("author", author);
+                book_map.put("date", date);
 
-                list_item.add(book_map);
+                bookListMap.add(book_map);
             }
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
     };
+
+    public void onDestroy(){
+        // ----- 向服务端发送退出信息，并释放资源 ----- //
+        new Thread() {
+            public void run() {
+                Controller controller = new Controller();
+                controller.exit();
+            }
+        }.start();
+        super.onDestroy();
+    }
 }

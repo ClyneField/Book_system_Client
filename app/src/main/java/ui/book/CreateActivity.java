@@ -20,7 +20,7 @@ public class CreateActivity extends Activity implements OnClickListener {
     private EditText c_id;
     private EditText c_price;
     private String book_name;
-    private String book_id;
+    private String book_date;
     private String book_price;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -49,17 +49,17 @@ public class CreateActivity extends Activity implements OnClickListener {
     public void onClick(View view) {
 
         book_name = c_name.getText().toString();
-        book_id = c_id.getText().toString();
+        book_date = c_id.getText().toString();
         book_price = c_price.getText().toString();
 
-        if (book_name.equals("") || book_id.equals("") || book_price.equals(""))
+        if (book_name.equals("") || book_date.equals("") || book_price.equals(""))
             Toast.makeText(CreateActivity.this,"图书信息不能为空",Toast.LENGTH_SHORT).show();
         else {
             // ----- 开启新线程打包图书信息 ----- /
             new Thread() {
                 public void run() {
                     Controller controller = new Controller(handler);
-                    controller.createBook(book_name, book_id, book_price);
+                    controller.createBook(book_name, book_date, book_price);
                 }
             }.start();
             // ----- 将输入框信息清空 ----- /

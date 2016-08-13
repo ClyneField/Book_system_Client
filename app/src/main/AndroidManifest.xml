@@ -44,5 +44,9 @@
         <activity
             android:name=".UpdateActivity">
         </activity>
+        <activity android:name=".SignUpActivity">
+        </activity>
+        <activity android:name=".BookMessage">
+        </activity>
     </application>
 </manifest>

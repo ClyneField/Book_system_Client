@@ -53,8 +53,8 @@ public class RetrieveActivity extends Activity{
             Book book = bookList.get(i);
 
             String name = book.getName();
-            String id = book.getId();
-            String price = book.getPrice();
+            String id = book.getDate();
+            String author = book.getAuthor();
 
             TableRow tableRow = new TableRow(this);
 
@@ -64,7 +64,7 @@ public class RetrieveActivity extends Activity{
 
             r_name.setText(name);
             r_id.setText(id);
-            r_price.setText(price);
+            r_price.setText(author);
 
             tableRow.addView(r_name);
             tableRow.addView(r_id);

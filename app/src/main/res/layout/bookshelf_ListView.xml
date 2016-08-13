@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+    <SearchView
+        android:id="@+id/searchBookshelf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </SearchView>
+    <ListView
+        android:id="@+id/list_bookshelf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#cec3bc"
+        android:dividerHeight="2dp"
+        android:showDividers="middle|beginning|end"/>
+</LinearLayout>

@@ -4,11 +4,11 @@ package util.book;
 
 public class Packager {
 
-    public String createPackage( String name, String id, String price ){
+    public String createPackage( String name, String id, String author ){
         // ----- 创建字符串缓冲 ----- //
         StringBuilder message=new StringBuilder("");
         // ----- 获取图书信息 ----- //
-        String content = BookPackage( name, id, price );
+        String content = BookPackage( name, id, author );
         // ----- 打包操作符 ----- //
         message.append("operate:create"+"\n");
         // ----- 打包图书信息 ----- //
@@ -24,10 +24,10 @@ public class Packager {
         return message.toString();
     }
 
-    public String updatePackage(String name,String id,String price){
+    public String updatePackage(String name,String id,String author){
         StringBuilder message=new StringBuilder("");
         message.append("operate:update"+"\n");
-        String content=BookPackage(name,id,price);
+        String content=BookPackage(name,id,author);
         message.append("content:"+content+"\n");
         return message.toString();
     }
@@ -39,6 +39,22 @@ public class Packager {
         return message.toString();
     }
 
+    public String signInPackage(Boolean type, Boolean account, String name, String password){
+        StringBuilder message=new StringBuilder("");
+        String content = AccountPackage(type,account,name,password);
+        message.append("operate:signIn"+"\n");
+        message.append("content:"+content+"\n");
+        return message.toString();
+    }
+
+    public String signUpPackage(Boolean type,Boolean account,String name, String password){
+        StringBuilder message=new StringBuilder("");
+        String content = AccountPackage(type,account,name,password);
+        message.append("operate:signUp"+"\n");
+        message.append("content:"+content+"\n");
+        return message.toString();
+    }
+
     public String exitPackage(){
         StringBuilder message=new StringBuilder("");
         message.append("operate:exit"+"\n");
@@ -46,12 +62,31 @@ public class Packager {
         return message.toString();
     }
 
-    public String BookPackage(String name,String id,String price){
+    public String BookPackage(String name,String id,String author){
         // ----- 创建字符串缓冲 ----- //
         StringBuilder message=new StringBuilder("");
         // ----- 用“#”将图书信息分离，便于服务端提取 ----- //
-        message.append( name+"#"+id+"#"+price );
+        message.append( name+"#"+id+"#"+author );
         // ----- 返回图书信息 ----- //
+        return message.toString();
+    }
+
+    /**
+     * 类名：Packager
+     * 方法名：AccountPackage
+     * 作用：打包账户信息
+     * @param type
+     * @param account
+     * @param name
+     * @param password
+     * @return
+     */
+    public String AccountPackage(Boolean type,Boolean account,String name, String password){
+        // ----- 创建字符串缓冲 ----- //
+        StringBuilder message=new StringBuilder("");
+        // ----- 用“#”将图书信息分离，便于服务端提取 ----- //
+        message.append( type+"#"+account+"#"+name+"#"+password );
+        // ----- 返回账户信息 ----- //
         return message.toString();
     }
 }
