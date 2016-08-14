@@ -1,10 +1,13 @@
 package ui.book;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -60,7 +63,7 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
         listView.setOnItemClickListener(this); //注册监听器
 
         SearchView searchView = (SearchView) view.findViewById(R.id.searchView);
-        searchView.setIconifiedByDefault(true);
+        searchView.setIconifiedByDefault(false);
         searchView.setSubmitButtonEnabled(true);
         searchView.setQueryHint("查询");
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -81,6 +84,23 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
                 return true;
             }
         });
+
+        LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getContext());
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("BookMessageAdapter");
+        intentFilter.addAction("BookMessageAdapterFailed");
+        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals("BookMessageAdapter"))
+                    Toast.makeText(getContext(),"添加成功",Toast.LENGTH_SHORT).show();
+                else if (intent.getAction().equals("BookMessageAdapterFailed"))
+                    Toast.makeText(getContext(),"该图书已存在",Toast.LENGTH_SHORT).show();
+            }
+        };
+        broadcastManager.registerReceiver(broadcastReceiver,intentFilter);
+
         return view;
     }
 
