@@ -10,8 +10,8 @@
     <string name="main_button4">查询</string>
 
     <string name="create_text1">图书名称:</string>
-    <string name="create_text2">图书编号:</string>
-    <string name="create_text3">图书价格:</string>
+    <string name="create_text2">图书作者:</string>
+    <string name="create_text3">出版日期:</string>
     <string name="create_button">增加</string>
 
     <string name="update_text1">图书名称:</string>

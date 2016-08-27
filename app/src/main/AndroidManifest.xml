@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="ui.book">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -13,40 +12,52 @@
         android:icon="@mipmap/ic_book"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FragmentManager">
+
+        <activity android:name=".FragmentManagement">
             <intent-filter>
                 <action android:name="ui.book.FragmentManager"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity">
+
+        <activity android:name="admin.book.MainActivity">
             <intent-filter>
                 <action android:name="ui.book.MainActivity"/>
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".DeleteActivity">
-        </activity>
+            android:name="admin.book.DeleteActivity"/>
         <activity
-            android:name=".CreateActivity">
-        </activity>
+            android:name="admin.book.CreateActivity"/>
         <activity
-            android:name=".RetrieveActivity">
-        </activity>
+            android:name="admin.book.RetrieveActivity"/>
         <activity
-            android:name=".UpdateActivity">
-        </activity>
-        <activity android:name=".SignUpActivity">
-        </activity>
-        <activity android:name=".BookMessage">
-        </activity>
+            android:name=".UpdateActivity"/>
+        <activity
+            android:name=".SignUpActivity"/>
+        <activity
+            android:name=".BookMessage"/>
+
+        <receiver
+            android:name="background.book.MessageReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="BookMessageAdapterSuccess"/>
+                <action android:name="BookMessageAdapterFailed"/>
+                <action android:name="BookshelfAdapter"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="background.book.DataService"/>
+
     </application>
 </manifest>

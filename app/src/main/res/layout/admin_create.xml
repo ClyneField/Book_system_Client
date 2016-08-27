@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="1"
-    android:background="@drawable/background">
+    android:background="#A0f0F0">
 
     <TableRow>
         <TextView
@@ -11,9 +11,9 @@
             android:text="@string/create_text1"
             android:textSize="10pt"/>
         <EditText
+            android:id="@+id/create_name"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:id="@+id/create_name"
             android:ems="10"/>
     </TableRow>
 
@@ -23,9 +23,9 @@
             android:text="@string/create_text2"
             android:textSize="10pt"/>
         <EditText
+            android:id="@+id/create_author"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/create_id"
             android:ems="10" />
     </TableRow>
 
@@ -39,7 +39,7 @@
         <EditText
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:id="@+id/create_price"
+            android:id="@+id/create_date"
             android:ems="10"/>
     </TableRow>
 

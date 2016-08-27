@@ -18,7 +18,7 @@ public class BookList extends ArrayList<Book> {
 
     /**
      * 类名：BookList
-     * 方法名：getBookList
+     * 方法名：getBookListFromServer
      * 作用：操作数据库，获得数据库中的图书列表
      * @return
      */
@@ -58,7 +58,7 @@ public class BookList extends ArrayList<Book> {
      */
     public boolean insert(Book book) {
 
-        if ( checkName(book.getName()) ) {
+        if ( checkName(book.getName(), true) ) {
             return false;
         } else {
             booklist.add(book);
@@ -76,25 +76,29 @@ public class BookList extends ArrayList<Book> {
 
     public  boolean delete(Book book) {
 
-        if ( checkName(book.getName())) {
-            booklist.delete(book);
+        if ( !checkName(book.getName(), false) ) {
+            return false;
+        } else {
             DatabaseConnection connection = new DatabaseConnection();
             SQLiteDatabase db = connection.getConnection();
             String sql = "DELETE FROM bookList WHERE name=\"" + book.getName() + "\"";
             db.execSQL(sql);
             db.close();
             return true;
-        } else {
-            return false;
         }
     }
 
-    public  boolean checkName(String name) {
+    public  boolean checkName(String name, Boolean type) {
 
         for (int i = 0; i < booklist.size(); ++i) {
             Book book = booklist.get(i);
-            if (book.getName().equals(name))
+            if (book.getName().equals(name)) {
+                if (!type) {
+                    booklist.remove(i);
+                    return true;
+                }
                 return true;
+            }
         }
         return false;
     }

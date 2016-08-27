@@ -2,6 +2,9 @@ package client.book;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
+
+import control.book.Controller;
 
 public class Client {
     private static Socket socket;
@@ -9,8 +12,11 @@ public class Client {
     private Client() {
         try {
             socket = new Socket("172.29.36.242", 57783);
-        } catch (IOException e) {
-            e.printStackTrace();
+            socket.setSoTimeout(1000);
+        } catch (SocketTimeoutException e1) {
+            new Controller().doResponse("网络连接错误");
+        } catch (IOException e2) {
+            e2.printStackTrace();
         }
     }
 

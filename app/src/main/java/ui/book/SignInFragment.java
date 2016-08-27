@@ -1,19 +1,23 @@
 package ui.book;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import control.book.Controller;
+import operation.book.MainActivity;
 
 /**
  * 类名：SignInFragment
@@ -21,10 +25,13 @@ import control.book.Controller;
  */
 public class SignInFragment extends Fragment implements View.OnClickListener{
 
-    RadioGroup radioGroup;
-    EditText name,password;
     Boolean userType = false;
+    CheckBox checkBox;
+    EditText name,password;
+    RadioGroup radioGroup;
     String result;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     /**
      * 回调方法：onCreateView
@@ -37,10 +44,26 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.log_in, container, false);
+        View view = inflater.inflate(R.layout.sign_in, container, false);
 
+        Log.d("SignInFragment", "onCreateView: ");
         view.findViewById(R.id.signIn).setOnClickListener(SignInFragment.this);
         view.findViewById(R.id.signUp).setOnClickListener(SignInFragment.this);
+
+        name = (EditText)view.findViewById(R.id.userName);
+        password = (EditText)view.findViewById(R.id.userPassword);
+
+        checkBox = (CheckBox)view.findViewById(R.id.checkBox);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Boolean isRemember = sharedPreferences.getBoolean("remember_password",false);
+        if (isRemember) {
+            String account = sharedPreferences.getString("account","");
+            String password = sharedPreferences.getString("password","");
+            this.name.setText(account);
+            this.password.setText(password);
+            checkBox.setChecked(true);
+        }
+
         radioGroup = (RadioGroup)view.findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener(){
             @Override
@@ -48,8 +71,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
                 userType = checkId != R.id.student;
             }
         });
-        name = (EditText)view.findViewById(R.id.userName);
-        password = (EditText)view.findViewById(R.id.userPassword);
+
         return view;
     }
 
@@ -62,6 +84,12 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
                 if (name.getText().length() == 0 || password.getText().length() == 0)
                     Toast.makeText(getContext(), "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 else {
+                    if (checkBox.isChecked()) {
+                        editor.putBoolean("remember_password",true);
+                        editor.putString("account", name.getText().toString());
+                        editor.putString("password", password.getText().toString());
+                        editor.commit();
+                    }
                     new Thread() {
                         public void run() {
                             Controller control = new Controller(handler);

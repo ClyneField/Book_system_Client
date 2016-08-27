@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
+import background.book.DataService;
+
 public class SplashScreen extends Activity {
     protected boolean _active = true;
     protected int _splashTime = 1000;
@@ -12,7 +14,9 @@ public class SplashScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        setContentView(R.layout.splash_screen);
+        Intent intent = new Intent(SplashScreen.this, DataService.class);
+        startService(intent);
 
         new Thread() {
             @Override

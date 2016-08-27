@@ -111,7 +111,7 @@ public class Controller {
     /**
      * 类名：Controller
      * 方法名：addToDatabase
-     * 作用：调用BookList.getBookList()方法，获得数据库图书信息
+     * 作用：调用BookList.getBookListFromServer()方法，获得数据库图书信息
      * 调用BookList.insert(book)方法，插入该图书信息
      * @param name
      * @param author

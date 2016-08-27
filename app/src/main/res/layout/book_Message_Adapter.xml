@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants"
     xmlns:tools="http://schemas.android.com/tools">
+    <!--屏蔽了所有子控件获取Focus的权限-->
     <TableLayout
         android:layout_width="0dp"
         android:layout_height="100dp"
