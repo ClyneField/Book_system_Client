@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import background.book.DataService;
+import client.book.ClientThread;
 import control.book.Controller;
 
 /**  类名：FragmentManager；
@@ -75,7 +76,7 @@ public class FragmentManagement extends FragmentActivity {
                 viewPager.setAdapter(fragmentAdapter);
                 viewPager.setCurrentItem(0); //设置首页
             }
-        }, 2000);
+        }, 1000);
     }
 
     public List<Map<String, Object>> getBookListFromServer() {
@@ -92,13 +93,19 @@ public class FragmentManagement extends FragmentActivity {
     }
 
     public void onDestroy(){
+        Log.d("FragmentManagement", "onDestroy: ");
         // ----- 向服务端发送退出信息，并释放资源 ----- //
-        new Thread() {
-            public void run() {
-                Controller controller = new Controller();
-                controller.exit();
-            }
-        }.start();
+        if ( !ClientThread.flag ) {
+            new Thread() {
+                public void run() {
+                    Controller controller = new Controller();
+                    controller.exit();
+                }
+            }.start();
+        }
+        unbindService(serviceConnection);
+        stopService(new Intent(this,DataService.class));
+
         super.onDestroy();
     }
 }

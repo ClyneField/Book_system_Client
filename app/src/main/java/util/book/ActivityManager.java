@@ -20,6 +20,8 @@ public class ActivityManager extends Application {
         }
         return activityManager;
     }
+
+    //MyApplication.getInstance().addActivity(this);每打开个Activity就掉用
     public void addActivity(Activity activity){
         activityList.add(activity);
     }
@@ -30,4 +32,3 @@ public class ActivityManager extends Application {
         }
     }
 }
-//MyApplication.getInstance().addActivity(this);每打开个Activity就掉用

@@ -19,7 +19,6 @@ import control.book.Controller;
 import model.book.Book;
 import model.book.BookList;
 import model.book.Response;
-import ui.book.SplashScreen;
 import util.book.DatabaseConnection;
 
 public class DataService extends Service{
@@ -31,12 +30,12 @@ public class DataService extends Service{
     public class GetBookListFromService extends Binder {
 
         public List<Map<String, Object>> getBookListFromServer() {
-            Log.d("DatabaseService", "getBookListFromServer: ");
+            Log.d("DataService", "getBookListFromServer: ");
             return bookListFromServer;
         }
 
         public List<Map<String, Object>> getBookListFromDatabase() {
-            Log.d("DatabaseService", "getBookListFromDatabase: ");
+            Log.d("DataService", "getBookListFromDatabase: ");
             return bookListFromDatabase;
         }
 
@@ -51,7 +50,14 @@ public class DataService extends Service{
 
     @Override
     public void onCreate() {
+
         DatabaseConnection.setContext(getApplicationContext());
+        Log.d("DataService", "onCreate: ");
+        super.onCreate();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
         // ----- 获取图书列表 ----- //
         new Thread() {
@@ -63,14 +69,6 @@ public class DataService extends Service{
                 setList(booklist);
             }
         }.start();
-
-        Log.d("DataService", "onCreate: ");
-        super.onCreate();
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-
         Log.d("DataService", "onStartCommand: ");
         return super.onStartCommand(intent, flags, startId);
     }
@@ -87,10 +85,13 @@ public class DataService extends Service{
             // ----- 获得Response当中的图书列表 ----- //
             BookList bookList = response.getBookList();
 
+            if ( !bookListFromServer.isEmpty() )
+                bookListFromServer.clear();
+
             for (int i = 0; i < bookList.size(); i++) {
+
                 // ----- 获得图书列表的一本图书信息 ----- //
                 Book book = bookList.get(i);
-
                 String name = book.getName();
                 String date = book.getDate();
                 String author = book.getAuthor();
@@ -100,15 +101,17 @@ public class DataService extends Service{
                 book_map.put("name", name);
                 book_map.put("author", author);
                 book_map.put("date", date);
-
                 bookListFromServer.add(book_map);
-                Log.d("DataService", "handleMessage: ");
             }
+            Log.d("DataService", "handleMessage: ");
         }
     };
 
     // ----- 获得Controller返回的bookList ----- //
     private void setList(BookList booklist) {
+
+        if ( !bookListFromDatabase.isEmpty() )
+            bookListFromDatabase.clear();
 
         for (int i = 0; i < booklist.size(); ++i) {
 
@@ -124,7 +127,8 @@ public class DataService extends Service{
             book_map.put("author", author);
             book_map.put("date", date);
 
-            bookListFromServer.add(book_map);
+            bookListFromDatabase.add(book_map);
         }
+        Log.d("DataService", "setList: ");
     }
 }

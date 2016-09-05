@@ -1,5 +1,7 @@
 package client.book;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -12,9 +14,9 @@ public class Client {
     private Client() {
         try {
             socket = new Socket("172.29.36.242", 57783);
-            socket.setSoTimeout(1000);
+            socket.setSoTimeout(3000);
         } catch (SocketTimeoutException e1) {
-            new Controller().doResponse("网络连接错误");
+            Log.d("Client", "Client: ");
         } catch (IOException e2) {
             e2.printStackTrace();
         }

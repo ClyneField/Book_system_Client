@@ -9,7 +9,6 @@ import android.view.Window;
 
 import control.book.Controller;
 import ui.book.R;
-import ui.book.UpdateActivity;
 
 public class MainActivity extends Activity implements OnClickListener{
 

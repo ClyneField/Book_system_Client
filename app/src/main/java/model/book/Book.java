@@ -36,6 +36,6 @@ public class Book{
     }
 
     public String toString(){
-        return book_date+" "+book_name+" "+book_author;
+        return book_name+" "+book_author+" "+book_date;
     }
 }

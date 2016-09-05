@@ -22,7 +22,7 @@
 
         <activity android:name=".FragmentManagement">
             <intent-filter>
-                <action android:name="ui.book.FragmentManager"/>
+                <action android:name="ui.book.FragmentManagement"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -40,7 +40,7 @@
         <activity
             android:name="admin.book.RetrieveActivity"/>
         <activity
-            android:name=".UpdateActivity"/>
+            android:name="admin.book.UpdateActivity"/>
         <activity
             android:name=".SignUpActivity"/>
         <activity

@@ -35,11 +35,11 @@ public class Controller {
      * 方法名：createBook；retrieveBook；updateBook；deleteBook
      * 功能：打包数据并启动网络线程
       */
-    public void createBook(String name, String id, String author) {
+    public void createBook(String name, String author, String date) {
         // ----- 初始化Packager ----- //
         Packager packager=new Packager();
         // ----- 打包数据 ----- //
-        String message=packager.createPackage(name,id,author);
+        String message=packager.createPackage(name,author,date);
         // ----- 启动网络线程 ----- //
         new ClientThread(Controller.this,message).start();
     }

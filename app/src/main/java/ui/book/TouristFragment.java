@@ -3,6 +3,9 @@ package ui.book;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import background.book.DataService;
+
 /**
  * 类名：TouristFragment
  * 作用：
@@ -26,10 +31,11 @@ import java.util.Map;
  * 可添加图书到BookshelfFragment；
  * 可浏览图书详细信息；
  */
-public class TouristFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class TouristFragment extends Fragment implements AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener {
 
     TouristAdapter touristAdapter;
     SearchView searchView;
+    SwipeRefreshLayout mSwipeLayout;
     ListView listView; //图书列表
     List<Map<String, Object>> bookListMap = new ArrayList<>(); //图书信息
 
@@ -51,7 +57,7 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         Log.d("TouristFragment", "onCreateView: ");
         View view = inflater.inflate(R.layout.book_message_listview, container, false);
@@ -59,6 +65,14 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
         listView = (ListView) view.findViewById(R.id.list_tourist); //加载列表
         listView.setAdapter(touristAdapter); //设置适配器
         listView.setOnItemClickListener(this); //注册监听器
+
+
+        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+        mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setColorSchemeColors(getResources().getColor(android.R.color.holo_purple),
+                getResources().getColor(android.R.color.holo_blue_bright),
+                getResources().getColor(android.R.color.holo_orange_light),
+                getResources().getColor(android.R.color.holo_red_light));
 
         searchView = (SearchView) view.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
@@ -91,6 +105,7 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
                 return false;
             }
         });
+
         return view;
     }
 
@@ -106,10 +121,46 @@ public class TouristFragment extends Fragment implements AdapterView.OnItemClick
         while (iterator.hasNext()) {
             HashMap map = (HashMap)iterator.next();
             if (map.get("name").equals(name)) {
-                iterator.remove();
                 return true;
-            }
+            } else
+                iterator.remove();
         }
         return false;
     }
+
+    @Override
+    public void onDestroy() {
+        Log.d("TouristFragment", "onDestroy: ");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onRefresh() {
+        Message message = handler.obtainMessage();
+        message.what = 0;
+        handler.sendMessage(message);
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (obtainMessage().what == 0) {
+                getContext().startService(new Intent(getActivity(), DataService.class));
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FragmentManagement fragmentManagement = (FragmentManagement) getActivity();
+                        bookListMap = fragmentManagement.getBookListFromServer();
+                        touristAdapter.notifyDataSetChanged();
+                        mSwipeLayout.setRefreshing(false);
+                    }
+                },100);
+
+                Log.d("TouristFragment", "handleMessage: ");
+            }
+        }
+    };
 }

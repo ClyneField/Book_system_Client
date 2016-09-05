@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,18 +67,24 @@ public class BookshelfFragment extends Fragment implements AdapterView.OnItemCli
 
                 IntentFilter intentFilter = new IntentFilter();
                 intentFilter.addAction("BookMessageAdapterSuccess");
-                intentFilter.addAction("BookshelfAdapter");
+                intentFilter.addAction("BookshelfAdapterSuccess");
                 broadcastReceiver = new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
                         if (intent.getAction().equals("BookMessageAdapterSuccess")) {
                             addList();
                             Log.d("BookshelfFragment", "onReceive: ");
-                        } else if (intent.getAction().equals("BookshelfAdapter")) {
+                        } else if (intent.getAction().equals("BookshelfAdapterSuccess")) {
                             deleteList(intent.getStringExtra("name"));
                         }
+                        Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                bookshelfAdapter.notifyDataSetChanged();
+                            }
+                        },100);
                         Log.d("BookshelfFragment", "notifyDataSetChanged:");
-                        bookshelfAdapter.notifyDataSetChanged();
                     }
                 };
                 getContext().registerReceiver(broadcastReceiver, intentFilter);

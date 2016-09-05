@@ -3,16 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </SearchView>
-    <ListView
-        android:id="@+id/list_tourist"
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#cec3bc"
-        android:dividerHeight="2dp"
-        android:showDividers="middle|beginning|end"/>
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/list_tourist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#cec3bc"
+            android:dividerHeight="2dp"
+            android:showDividers="middle|beginning|end"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

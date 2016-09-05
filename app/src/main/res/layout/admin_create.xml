@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:stretchColumns="1"
-    android:background="#A0f0F0">
+    android:background="@mipmap/background">
 
     <TableRow>
         <TextView
@@ -25,20 +25,18 @@
         <EditText
             android:id="@+id/create_author"
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:ems="10" />
     </TableRow>
 
     <TableRow>
         <TextView
             android:layout_height="wrap_content"
-            android:id="@+id/c_price"
             android:text="@string/create_text3"
-            android:textSize="10pt"
-            android:layout_centerInParent="true"/>
+            android:textSize="10pt" />
         <EditText
             android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
+            android:inputType="date"
             android:id="@+id/create_date"
             android:ems="10"/>
     </TableRow>

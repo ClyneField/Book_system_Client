@@ -1,14 +1,17 @@
 package util.book;
 
-/** Packager功能：打包操作符和图书信息返回给Controller；打包退出信息 */
+/** 类名：Packager
+ * 作用：打包操作符和图书信息返回给Controller；
+ * 打包退出信息
+ */
 
 public class Packager {
 
-    public String createPackage( String name, String id, String author ){
+    public String createPackage( String name, String author, String date ){
         // ----- 创建字符串缓冲 ----- //
         StringBuilder message=new StringBuilder("");
         // ----- 获取图书信息 ----- //
-        String content = BookPackage( name, id, author );
+        String content = BookPackage( name, author, date );
         // ----- 打包操作符 ----- //
         message.append("operate:create"+"\n");
         // ----- 打包图书信息 ----- //
@@ -62,11 +65,11 @@ public class Packager {
         return message.toString();
     }
 
-    public String BookPackage(String name,String id,String author){
+    public String BookPackage(String name,String author,String date){
         // ----- 创建字符串缓冲 ----- //
         StringBuilder message=new StringBuilder("");
         // ----- 用“#”将图书信息分离，便于服务端提取 ----- //
-        message.append( name+"#"+id+"#"+author );
+        message.append( name+"#"+author+"#"+date );
         // ----- 返回图书信息 ----- //
         return message.toString();
     }

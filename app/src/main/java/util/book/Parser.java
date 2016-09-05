@@ -34,6 +34,9 @@ public class Parser {
             } else {
                 string = message_of_response [i];
             }
+
+            if (string.isEmpty())
+                break;
             // ----- 将图书信息添加到图书列表 ----- //
             Book book = parseBook(string);
             booklist.add(book);
@@ -46,9 +49,9 @@ public class Parser {
     // ----- 解析服务端的图书信息 ----- //
     public Book parseBook(String string) {
         String[] message = string.split("#");
-        String id = message[0];
-        String name = message[1];
-        String author = message[2];
-        return new Book( id, name, author );
+        String name = message[0];
+        String author = message[1];
+        String date = message[2];
+        return new Book( name, author, date );
     }
 }

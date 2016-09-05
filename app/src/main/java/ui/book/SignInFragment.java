@@ -12,12 +12,14 @@ import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.support.v4.app.Fragment;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import control.book.Controller;
-import operation.book.MainActivity;
+import admin.book.MainActivity;
+import student.book.StudentActivity;
 
 /**
  * 类名：SignInFragment
@@ -25,7 +27,7 @@ import operation.book.MainActivity;
  */
 public class SignInFragment extends Fragment implements View.OnClickListener{
 
-    Boolean userType = false;
+    Boolean userType = false; //true代表admin，false代表student
     CheckBox checkBox;
     EditText name,password;
     RadioGroup radioGroup;
@@ -50,11 +52,28 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
         view.findViewById(R.id.signIn).setOnClickListener(SignInFragment.this);
         view.findViewById(R.id.signUp).setOnClickListener(SignInFragment.this);
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+
         name = (EditText)view.findViewById(R.id.userName);
         password = (EditText)view.findViewById(R.id.userPassword);
+        radioGroup = (RadioGroup)view.findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged( RadioGroup radioGroup, int checkId ) {
+                userType = checkId != R.id.student;
+            }
+        });
 
         checkBox = (CheckBox)view.findViewById(R.id.checkBox);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor = sharedPreferences.edit();
+                editor.putBoolean("remember_password",b);
+                editor.apply();
+            }
+        });
+
         Boolean isRemember = sharedPreferences.getBoolean("remember_password",false);
         if (isRemember) {
             String account = sharedPreferences.getString("account","");
@@ -63,14 +82,6 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
             this.password.setText(password);
             checkBox.setChecked(true);
         }
-
-        radioGroup = (RadioGroup)view.findViewById(R.id.radioGroup);
-        radioGroup.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged( RadioGroup radioGroup, int checkId ) {
-                userType = checkId != R.id.student;
-            }
-        });
 
         return view;
     }
@@ -84,11 +95,13 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
                 if (name.getText().length() == 0 || password.getText().length() == 0)
                     Toast.makeText(getContext(), "账号或密码不能为空", Toast.LENGTH_SHORT).show();
                 else {
+                    editor = sharedPreferences.edit();
                     if (checkBox.isChecked()) {
                         editor.putBoolean("remember_password",true);
                         editor.putString("account", name.getText().toString());
                         editor.putString("password", password.getText().toString());
-                        editor.commit();
+                    } else {
+                        editor.clear();
                     }
                     new Thread() {
                         public void run() {
@@ -96,6 +109,7 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
                             control.checkSignInMessage(false, userType, name.getText().toString(), password.getText().toString());
                         }
                     }.start();
+                    editor.apply();
                 }
                 break;
             //若点击了注册按钮
@@ -115,25 +129,16 @@ public class SignInFragment extends Fragment implements View.OnClickListener{
             result = bundle.getString("result");
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             if (result.equals("登录成功")) {
-                new Thread() {
-                    public void run() {
-                        Intent intent = new Intent();
-                        intent.setClass(getContext(), MainActivity.class);
-                        startActivity(intent);
-                    }
-                }.start();
+                if (userType) {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent();
+                    intent.setClass(getContext(), StudentActivity.class);
+                    startActivity(intent);
+                }
             }
         }
     };
-
-    public void onDestroy(){
-        // ----- 向服务端发送退出信息，并释放资源 ----- //
-        new Thread() {
-            public void run() {
-                Controller controller = new Controller();
-                controller.exit();
-            }
-        }.start();
-        super.onDestroy();
-    }
 }
